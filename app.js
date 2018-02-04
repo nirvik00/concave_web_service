@@ -17,7 +17,9 @@ const db=require('./config/database');
 
 //connect to database
 // local or production ? =
-mongoose.connect(db.mongoURI)
+mongoose.connect(db.mongoURI, {
+  useMongoClient:true
+})
 .then(() => console.log('mongodb connected...'))
 .catch(err => console.log(err));
 
