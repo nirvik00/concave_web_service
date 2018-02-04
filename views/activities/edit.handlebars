@@ -1,0 +1,25 @@
+{{#each errors}}
+  <div class="alert alert-danger">{{text}}</div>
+{{else}}
+{{/each}}
+
+
+<div class="card card-body">
+  <h3>Edit Activity Idea</h3>
+  <form action="/activities/{{activity.id}}?_method=PUT" method="post">
+    <input type="hidden" name="_method" value="PUT">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" name="name" value="{{activity.name}}">
+    </div>
+    <div class="form-group">
+      <label for="createdby">Created By</label>
+      <input type="text" class="form-control" name="createdby" value="{{activity.createdby}}">
+    </div>
+    <div class="form-group">
+      <label for="details">Details</label>
+      <textarea class="form-control" name="details"> {{activity.details}} </textarea>
+    </div>
+    <button type="submit" class="btn">Submit</button>
+  </form>
+</div>
