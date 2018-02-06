@@ -18,7 +18,7 @@ const db=require('./config/database');
 //connect to database
 // local or production ? =
 mongoose.connect(db.mongoURI, {
-  useMongoClient:true
+  //useMongoClient:true
 })
 .then(() => console.log('mongodb connected...'))
 .catch(err => console.log(err));
@@ -75,9 +75,7 @@ app.use(function(req, res, next){
 //this is the landing page : index
 app.get('/',(req,res) => {
   title="Concave"
-  res.render('index', {
-    title:title
-  });
+  res.render('index', {title:title});
 });
 
 //this is the about page : about
@@ -96,3 +94,4 @@ app.listen(port, ()=>{
   console.log('server started on port ${port}');
 });
 
+ 

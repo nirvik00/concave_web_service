@@ -20,6 +20,15 @@ router.get('/',ensureAuthenticated, (req, res) => {
     });
 });
 
+//activities view page
+router.get('/view', (req, res) =>{
+  Activity.find({})
+  .sort({date: 'desc'})
+  .then(activities =>{
+    res.render('./activities/view', {activities: activities});
+  });
+});
+
 //add activities form
 router.get('/add', ensureAuthenticated, (req, res) => {
   res.render('./activities/add');

@@ -19,14 +19,15 @@
             <li class="nav-item dropdown">
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarDropDownMenuLink">Member Zone</a>
               <div class="dropdown-menu">
-                <a href="/members" class="dropdown-item">View members</a>
+                <a href="/members/view" class="dropdown-item">View members</a>
                 <a href="/members/add" class="dropdown-item">Add Someone</a>
               </div>
             </li>
             <li class="nav-item dropdown">
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarDropDownMenuLink">Activity Ideas</a>
               <div class="dropdown-menu">
-                <a href="/activities" class="dropdown-item">View activities</a>
+                <a href="/activities" class="dropdown-item">View your activities</a>
+                <a href="/activities/view" class="dropdown-item"> View all activities</a>
                 <a href="/activities/add" class="dropdown-item">Add an activity</a>
               </div>
             </li>
@@ -34,6 +35,12 @@
               <a href="/users/logout" class="nav-link">Logout</a>
             </li>
         {{else}}
+            <li calss "nav-item">
+               <a href="/activities/view" class="nav-link">Activities</a>
+            </li>
+            <li calss "nav-item">
+               <a href="/members/view" class="nav-link">Members</a>
+            </li>
             <li class="nav-item">
               <a href="/users/login" class="nav-link">Login</a>
             </li>

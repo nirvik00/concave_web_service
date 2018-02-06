@@ -1,11 +1,17 @@
 const express=require('express');
 const router=express.Router();
 const mongoose=require('mongoose');
+const {ensureAuthenticated} = require('../helpers/auth');
 module.exports=router;
 
 //load member model
 require('../models/Member');
 const Member=mongoose.model('members');
+
+//load user model
+require('../models/User');
+const User=mongoose.model('users');
+
 
 //members index page
 router.get('/', (req,res) =>{
@@ -18,19 +24,30 @@ router.get('/', (req,res) =>{
   });
 });
 
+//view members
+router.get('/view', (req,res) =>{
+  User.find({})
+  .sort({date:'desc'})
+  .then(users => {
+    res.render('./members/view', {users:users});
+  });
+});
+
 //add members form
 router.get('/add', (req,res) => {
   res.render('./members/add');
 });
 
 //add member to data base 
-router.post('/', (req,res) => {
+router.post('/',ensureAuthenticated,(req,res) => {
   const newMember={
     name:req.body.name,
-    addedby:req.body.addedby,
+    email:req.body.email,
+    addedby:req.user.name,
     status:req.body.status,
-    password:req.body.password
+    password:req.user.password
   }
+  console.log(req.user.name);
   new Member(newMember)
   .save()
   .then(Member => {
