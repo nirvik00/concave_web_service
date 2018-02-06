@@ -33,10 +33,8 @@ router.get('/view', (req,res) =>{
   });
 });
 
-//add members form
-router.get('/add', (req,res) => {
-  res.render('./members/add');
-});
+
+
 
 //add member to data base 
 router.post('/',ensureAuthenticated,(req,res) => {

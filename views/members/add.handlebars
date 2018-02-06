@@ -4,21 +4,46 @@
 
 
 <div class="card card-body">
-  <h4>Add a new member</h4>
+  <h4>Add a new project</h4>
   <br>
   <form action="/members" method="post">
     <div class="form-group">
-      <label for="name">Prospective member's Name</label>
+      <label for="name">Project Name</label>
       <input type="text" class="form-control" name="name" required>
     </div>
-    <div class="form-group">
-      <label for="email">Prospective member's Email</label>
-      <input type="email" class="form-control" name="email" required>
-    </div>
-    <div class="form-group">
-      <label for="status">Status</label>
-      <textarea class="form-control" name="status" ></textarea>
-    </div>
+    <!--<pre id="resp">Here it shows server response</pre>-->
+    <form id="uploadf" enctype="multipart/form-data" action="/upload" method="post">
+      <input type="file" name="up_f" id="up_f" />
+      <input type="submit" value="Upload" name="submit" />
+    </form>
+    <script>
+      var resp = document.getElementById('resp');
+      var form = document.getElementById('uploadf'); //get the form
+      //sends form data with ajax to server
+      function sendFile(ev) {
+        ev.preventDefault();
+        //get the form and send its data to server
+        var data = new FormData(form);
+        var req = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        req.open('post', form.action, true);
+        req.send(data);
+        //receives and parse response in JSON format
+        req.onreadystatechange = function () {
+          if (req.readyState == 4) {
+            // alert(req.responseText);
+            var obr = JSON.parse(req.responseText.replace(/\\\\/g, '/'));
+            if (obr) {
+              //HERE you can parse the obr JSON object
+              if (obr.err) resp.innerHTML = '<h4 style="color:#ee0000">' + JSON.stringify(obr.err, null, 2).replace(/(^")|("$)/g, '').replace(/\\n/ig, '<br>') + '</h4>';
+              else resp.innerHTML = JSON.stringify(obr, null, 2);
+            }
+          }
+        };
+        return false;
+      }
+      // calls sendFile() on submit
+      form.addEventListener('submit', sendFile, false);
+    </script>
     <br>
     <button type="submit" class="btn">Submit</button>
   </form>
