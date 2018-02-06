@@ -33,9 +33,6 @@ router.get('/view', (req,res) =>{
   });
 });
 
-
-
-
 //add member to data base 
 router.post('/',ensureAuthenticated,(req,res) => {
   const newMember={

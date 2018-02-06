@@ -13,6 +13,19 @@ const User=mongoose.model('users');
 require('../models/Member');
 const Member=mongoose.model('members');
 
+//view users name and email
+router.get('/view', (req,res) => {
+  User.find({})
+  .sort({date:'desc'})
+  .then(users=>{
+    res.render('users/view', {
+      users:users
+    });  
+  });  
+});
+
+
+//go to login page
 router.get('/login', (req,res) => {
   res.render('users/login');
 });

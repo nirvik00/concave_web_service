@@ -30,6 +30,7 @@ require ('./config/passport')(passport);
 const activities=require('./routes/activities');
 const members=require('./routes/members');
 const users=require('./routes/users');
+const projects=require('./routes/projects');
 
 
 //load middleware
@@ -87,6 +88,7 @@ app.get('/about', (req,res) => {
 app.use('/activities', activities);
 app.use('/members', members);
 app.use('/users', users);
+app.use('/projects', projects);
 
 //start server on port heroku or locally at 3000 
 const port=process.env.PORT || 3000;
