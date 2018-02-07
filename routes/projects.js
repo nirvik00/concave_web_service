@@ -2,12 +2,18 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const { ensureAuthenticated } = require('../helpers/auth');
+const fileUpload= require('express-fileupload');
+const path=require('path');
+
 
 module.exports = router;
 
 //load projects model
 require('../models/Project');
 const Project = mongoose.model('projects');
+
+//middleware for file upload
+router.use(fileUpload());
 
 //projects view page as general login
 router.get('/view', (req, res) => {
@@ -27,22 +33,21 @@ router.get('/add', ensureAuthenticated, (req, res) => {
 });
 
 //upload image
-router.post("/upload", (req, res) => {
+router.post("/upload/:name", (req, res) => {
+  proj_name=req.params.name;
   if(!req.files){
     res.send("No files uploaded");
   }else{
     const file=req.files.file;
-    console.log(req);
     const extension=path.extname(file.name);
     if(extension !== '.png' && extension !== '.gif' && extension !== '.jpg'){
       res.send("Only images are allowed");
     }else{
-      const filepath=__dirname+"/uploads/"+file.name;
-      file.mv(__dirname+"/uploads/"+file.name, function(err){
+      file.mv(__dirname+'../../public/img/'+proj_name+'.jpg', function(err){
         if(err){
           res.status(500).send(err);
         }else{
-          res.send(name+ " file uploaded");
+          res.render('./projects/edit');
         }
       });
     }
@@ -63,7 +68,7 @@ router.post('/', ensureAuthenticated, (req, res) => {
   new Project(newProject)
     .save()
     .then(Project => {
-      res.redirect('./projects/view')
+      res.redirect('./upload')
     });
 });
 
@@ -111,7 +116,7 @@ router.put('/:id', ensureAuthenticated, (req, res) => {
     //save with new data
     project.save()
     .then(project =>{
-      res.redirect('/projects/edit');
+      res.render('./projects/uploadimg',{projname:project.projname});
     })        
   });
 });
@@ -128,8 +133,11 @@ router.delete('/:id', ensureAuthenticated, (req, res) =>{
 //go to detailed project
 router.get('/detail/:id', (req, res) => {
   Project.findOne({_id:req.params.id})
-  .then(project =>{    
-    res.render('./projects/detail',{project:project});
+  .then(project =>{   
+    name=project.projname;
+    //const filepath=__dirname+'../../uploads/'+name+'.jpg';
+    const path="/img/"+project.projname+".jpg";
+    res.render('./projects/detail',{project:project, path:path,});
   });
 });
 

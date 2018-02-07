@@ -1,9 +1,11 @@
   </div>
+  {{projname}}
   <div class="form-group"></div>
-   <form enctype="multipart/form-data" method="post" action="/upload">
+   <form enctype="multipart/form-data" method="post" action="/projects/upload/{{projname}}">
    <div class="form-group">
     <input type="file" name="file" class="btn">
     <button type="submit" class="btn">Submit</button>
     </div>
   </form>
 </div>
+

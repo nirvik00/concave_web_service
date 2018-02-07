@@ -91,7 +91,7 @@ app.use('/projects', projects);
 //start server on port heroku or locally at 3000 
 const port=process.env.PORT || 3000;
 app.listen(port, ()=>{
-  console.log('server started on port ${port}');
+  console.log(`server started on port ${port}`);
 });
 
  
