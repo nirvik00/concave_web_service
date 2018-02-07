@@ -33,21 +33,22 @@ router.get('/add', ensureAuthenticated, (req, res) => {
 });
 
 //upload image
-router.post("/upload/:name", (req, res) => {
+router.post("/upload/:name", ensureAuthenticated, (req, res) => {
   proj_name=req.params.name;
   if(!req.files){
-    res.send("No files uploaded");
+    res.redirect('../view');
   }else{
     const file=req.files.file;
     const extension=path.extname(file.name);
     if(extension !== '.png' && extension !== '.gif' && extension !== '.jpg'){
-      res.send("Only images are allowed");
+      res.redirect('../view');
     }else{
       file.mv(__dirname+'../../public/img/'+proj_name+'.jpg', function(err){
         if(err){
-          res.status(500).send(err);
+          //res.status(500).send(err);
+          res.redirect('../view');
         }else{
-          res.render('./projects/edit');
+          res.redirect('../view');
         }
       });
     }
