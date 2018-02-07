@@ -130,6 +130,7 @@ router.post("/upload/:name", ensureAuthenticated, (req, res) => {
     }else{
       file.mv(__dirname+'../../public/img/'+act_name+'.jpg', function(err){
         if(err){
+          console.log("errror");
           //res.status(500).send(err);
           res.redirect('../view');
         }else{
