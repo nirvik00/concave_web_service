@@ -128,7 +128,7 @@ router.post("/upload/:name", ensureAuthenticated, (req, res) => {
     if(extension !== '.png' && extension !== '.gif' && extension !== '.jpg'){
       res.redirect('../view');
     }else{
-      file.mv(__dirname+'../../public/img/'+act_name+'.jpg', function(err){
+      file.mv('public/img/'+act_name+'.jpg', function(err){
         if(err){
           console.log("errror");
           //res.status(500).send(err);
