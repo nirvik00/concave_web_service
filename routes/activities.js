@@ -2,12 +2,19 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const {ensureAuthenticated} = require('../helpers/auth');
+const fileUpload= require('express-fileupload');
+const path=require('path');
+
 
 module.exports = router;
 
 //load activities model
 require('../models/Activity');
 const Activity = mongoose.model('activities');
+
+//middleware for file upload
+router.use(fileUpload());
+
 
 //activities index page
 router.get('/',ensureAuthenticated, (req, res) => {
@@ -47,7 +54,8 @@ router.post('/', ensureAuthenticated, (req, res) => {
   new Activity(newActivity)
     .save()
     .then(Activity => {
-      res.redirect('/activities');
+      //res.redirect('/activities');
+      res.render('./activities/uploadimg',{name:newActivity.name});
     });
 });
 
@@ -84,7 +92,8 @@ router.put('/:id', ensureAuthenticated, (req,res) => {
     //save with new data
     activity.save()
     .then(activity => {
-      res.redirect('/activities');
+      //res.redirect('/activities');
+      res.render('./activities/uploadimg',{name:activity.name});
     })
     .catch(err);
   });
@@ -102,6 +111,31 @@ router.delete('/:id', ensureAuthenticated, (req, res) => {
 router.get('/detail/:id', (req, res) => {
   Activity.findOne({_id:req.params.id})
   .then(activity =>{    
-    res.render('./activities/detail',{activity:activity});
+    const path="/img/"+activity.name+".jpg";
+    res.render('./activities/detail',{activity:activity, path:path});
   });
+});
+
+
+//upload image
+router.post("/upload/:name", ensureAuthenticated, (req, res) => {
+  act_name=req.params.name;
+  if(!req.files){
+    res.redirect('../view');
+  }else{
+    const file=req.files.file;
+    const extension=path.extname(file.name);
+    if(extension !== '.png' && extension !== '.gif' && extension !== '.jpg'){
+      res.redirect('../view');
+    }else{
+      file.mv(__dirname+'../../public/img/'+act_name+'.jpg', function(err){
+        if(err){
+          //res.status(500).send(err);
+          res.redirect('../view');
+        }else{
+          res.redirect('../view');
+        }
+      });
+    }
+  }
 });

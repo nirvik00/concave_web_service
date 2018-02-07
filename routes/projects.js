@@ -53,7 +53,8 @@ router.post("/upload/:name", ensureAuthenticated, (req, res) => {
       });
     }
   }
-})
+});
+
 //process projects form : add to database
 router.post('/', ensureAuthenticated, (req, res) => {
   useremail0 = req.user.email;
@@ -69,7 +70,8 @@ router.post('/', ensureAuthenticated, (req, res) => {
   new Project(newProject)
     .save()
     .then(Project => {
-      res.redirect('./upload')
+      //res.redirect('./upload')
+      res.render('./projects/uploadimg',{projname:newProject.projname});
     });
 });
 
@@ -141,5 +143,3 @@ router.get('/detail/:id', (req, res) => {
     res.render('./projects/detail',{project:project, path:path,});
   });
 });
-
-
