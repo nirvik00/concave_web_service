@@ -27,6 +27,9 @@ const ProjectSchema=new Schema({
     type:String,
     required: true
   },
+  imgpath:{
+    type:String
+  },
   date:{
     type:Date,
     default:Date.now

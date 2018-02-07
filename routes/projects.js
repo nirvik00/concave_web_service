@@ -26,8 +26,28 @@ router.get('/add', ensureAuthenticated, (req, res) => {
   });
 });
 
-
-
+//upload image
+router.post("/upload", (req, res) => {
+  if(!req.files){
+    res.send("No files uploaded");
+  }else{
+    const file=req.files.file;
+    console.log(req);
+    const extension=path.extname(file.name);
+    if(extension !== '.png' && extension !== '.gif' && extension !== '.jpg'){
+      res.send("Only images are allowed");
+    }else{
+      const filepath=__dirname+"/uploads/"+file.name;
+      file.mv(__dirname+"/uploads/"+file.name, function(err){
+        if(err){
+          res.status(500).send(err);
+        }else{
+          res.send(name+ " file uploaded");
+        }
+      });
+    }
+  }
+})
 //process projects form : add to database
 router.post('/', ensureAuthenticated, (req, res) => {
   useremail0 = req.user.email;
