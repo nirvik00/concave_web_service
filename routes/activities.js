@@ -38,9 +38,11 @@ router.get('/add', ensureAuthenticated, (req, res) => {
 router.post('/', ensureAuthenticated, (req, res) => {
   const newActivity = {
     name: req.body.name,
-    createdby: req.body.createdby,
+    description: req.body.description,
     details: req.body.details,
-    user:req.user.id
+    user:req.user.id,
+    username:req.user.name,
+    email:req.user.email
   }
   new Activity(newActivity)
     .save()
@@ -72,11 +74,13 @@ router.put('/:id', ensureAuthenticated, (req,res) => {
     _id:req.params.id
   })
   .then(activity => {
-   
     //new values
     activity.name=req.body.name;
+    activity.description=req.body.description;
     activity.details=req.body.details;
-    activity.createdby=req.body.createdby;
+    activity.user=req.user.id;
+    activity.username=req.user.name;
+    activity.email=req.user.email;
     //save with new data
     activity.save()
     .then(activity => {
@@ -94,3 +98,10 @@ router.delete('/:id', ensureAuthenticated, (req, res) => {
   });
 });
 
+//go to detailed project
+router.get('/detail/:id', (req, res) => {
+  Activity.findOne({_id:req.params.id})
+  .then(activity =>{    
+    res.render('./activities/detail',{activity:activity});
+  });
+});

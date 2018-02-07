@@ -26,6 +26,8 @@ router.get('/add', ensureAuthenticated, (req, res) => {
   });
 });
 
+
+
 //process projects form : add to database
 router.post('/', ensureAuthenticated, (req, res) => {
   useremail0 = req.user.email;
@@ -75,18 +77,17 @@ router.get('/edit/:id', ensureAuthenticated, (req, res) => {
 
 //get form values and update database
 router.put('/:id', ensureAuthenticated, (req, res) => {
-  console.log('trying to save');
   Project.findOne({
     _id:req.params.id
   })
   .then(project =>{
     //new values
-    project.projname=req.body.projname,
-    project.description=req.body.description,    
-    project.details=req.body.details,
-    project.username=req.user.name,
-    project.email=req.user.email,
-    project.user=req.user.id
+    project.projname=req.body.projname;
+    project.description=req.body.description;
+    project.details=req.body.details;
+    project.username=req.user.name;
+    project.email=req.user.email;
+    project.user=req.user.id;
     //save with new data
     project.save()
     .then(project =>{
@@ -102,3 +103,14 @@ router.delete('/:id', ensureAuthenticated, (req, res) =>{
     res.redirect('/projects/edit');
   })
 })
+
+
+//go to detailed project
+router.get('/detail/:id', (req, res) => {
+  Project.findOne({_id:req.params.id})
+  .then(project =>{    
+    res.render('./projects/detail',{project:project});
+  });
+});
+
+

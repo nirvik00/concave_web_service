@@ -6,7 +6,7 @@ const ActivitySchema = new Schema({
     type:String,
     required:true
   },
-  createdby:{
+  description:{
     type:String,
     required:true
   },
@@ -15,6 +15,14 @@ const ActivitySchema = new Schema({
     required:true
   },
   user:{
+    type:String,
+    required: true
+  },
+  username:{
+    type:String,
+    required: true
+  },
+  email:{
     type:String,
     required: true
   },

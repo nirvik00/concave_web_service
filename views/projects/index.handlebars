@@ -4,15 +4,11 @@
   <h4>{{projname}}</h4>
   <p>{{description}}</p>
   
-
-
   <a class="btn btn-dark btn-block mb-2" style="width: 100px" href="/projects/edit/{{id}}">Edit</a>
-
   <form method="post" action="/projects/{{id}}?_method=DELETE">
     <input type="hidden" name="_method" value="DELETE">
     <input type="submit" class="btn btn-danger btn-block" style="width: 100px" value="Delete">
   </form>
-
 </div>
 {{else}}
 <p>No projects listed</p>
