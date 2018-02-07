@@ -138,7 +138,6 @@ router.get('/detail/:id', (req, res) => {
   Project.findOne({_id:req.params.id})
   .then(project =>{   
     name=project.projname;
-    //const filepath=__dirname+'../../uploads/'+name+'.jpg';
     const path="/img/"+project.projname+".jpg";
     res.render('./projects/detail',{project:project, path:path,});
   });
