@@ -24,7 +24,6 @@ router.get('/view', (req,res) => {
   });  
 });
 
-
 //go to login page
 router.get('/login', (req,res) => {
   res.render('users/login');

@@ -3,18 +3,21 @@
 {{else}}
 {{/each}}
 
-
 <div class="card card-body">
-  <h3>Edit Memebership Fields</h3>
-  <form action="/members/{{member.id}}?_method=PUT" method="post">
+  <h4>Edit Project Fields</h4>
+  <form action="/projects/{{project.id}}?_method=PUT" method="post">
     <input type="hidden" name="_method" value="PUT">
     <div class="form-group">
-      <label for="name">Name</label>
-      <input type="text" class="form-control" name="name" value="{{member.name}}">
+      <label for="projname">Name</label>
+      <input type="text" class="form-control" name="projname" value="{{project.projname}}" required>
     </div>
     <div class="form-group">
-      <label for="status">Status</label>
-      <textarea class="form-control" name="status"> {{member.status}} </textarea>
+      <label for="description">Description</label>
+      <textarea class="form-control" name="description" required> {{project.description}} </textarea>
+    </div>    
+    <div class="form-group">
+      <label for="details">Details</label>
+      <textarea class="form-control" name="details" required> {{project.details}} </textarea>
     </div>
     <button type="submit" class="btn">Submit</button>
   </form>

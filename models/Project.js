@@ -3,7 +3,7 @@ const Schema=mongoose.Schema;
 
 //create Schema
 const ProjectSchema=new Schema({
-  name:{
+  projname:{
     type:String,
     required:true
   },
@@ -23,6 +23,10 @@ const ProjectSchema=new Schema({
     type:String,
     required:true
   }, 
+  user:{
+    type:String,
+    required: true
+  },
   date:{
     type:Date,
     default:Date.now

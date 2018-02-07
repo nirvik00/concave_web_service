@@ -1,19 +1,19 @@
-{{#each members}}
+{{#each projects}}
 <div class="card card-body mb-3">
   
-  <h4>{{name}}</h4>
-  <p>{{status}}</p>
+  <h4>{{projname}}</h4>
+  <p>{{description}}</p>
   
 
 
-  <a class="btn btn-dark btn-block mb-2" style="width: 100px" href="/members/edit/{{id}}">Edit</a>
+  <a class="btn btn-dark btn-block mb-2" style="width: 100px" href="/projects/edit/{{id}}">Edit</a>
 
-  <form method="post" action="/members/{{id}}?_method=DELETE">
+  <form method="post" action="/projects/{{id}}?_method=DELETE">
     <input type="hidden" name="_method" value="DELETE">
     <input type="submit" class="btn btn-danger btn-block" style="width: 100px" value="Delete">
   </form>
 
 </div>
 {{else}}
-<p>No video ideas listed</p>
+<p>No projects listed</p>
 {{/each}}

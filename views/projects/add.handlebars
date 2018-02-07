@@ -6,14 +6,18 @@
 <div class="card card-body">
   <h4>Add a new project</h4>
   <br>
-  <form action="/members" method="post">
+  <form action="/projects" method="post">
     <div class="form-group">
-      <label for="name">Project Name</label>
-      <input type="text" class="form-control" name="name" required>
+      <label for="projname">Project Name</label>
+      <input type="text" class="form-control" name="projname" required>
     </div>   
     <div class="form-group">
-      <label for="details">Details</label>
-      <textarea class="form-control" name="details" ></textarea>
+      <label for="projdesc">Description</label>
+      <textarea class="form-control" name="projdesc" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="projdetails">Details</label>
+      <textarea class="form-control" name="projdetails" required></textarea>
     </div><br>  
     <br>
     <button type="submit" class="btn">Submit</button>

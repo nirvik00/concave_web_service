@@ -1,5 +1,7 @@
-<h1> student ideas & interests</h1>
-{{#each users}}
-<h4>{{name}}</h4>
-<p>{{status}}</p>
+{{#each projects}}
+<div class="card card-body mb-4">
+<h4>{{projname}}</h4>
+<p>{{description}}</p>
+<p>{{username}}    &nbsp;&nbsp;{{email}}</p>
+</div>
 {{/each}}
