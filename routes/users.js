@@ -9,9 +9,6 @@ const {ensureAuthenticated} = require('../helpers/auth');
 require('../models/User');
 const User=mongoose.model('users');
 
-//load member model
-require('../models/Member');
-const Member=mongoose.model('members');
 
 //view users name and email
 router.get('/view', (req,res) => {

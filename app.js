@@ -28,7 +28,6 @@ require ('./config/passport')(passport);
 
 //load routes
 const activities=require('./routes/activities');
-const members=require('./routes/members');
 const users=require('./routes/users');
 const projects=require('./routes/projects');
 
@@ -86,7 +85,6 @@ app.get('/about', (req,res) => {
 
 //use routes
 app.use('/activities', activities);
-app.use('/members', members);
 app.use('/users', users);
 app.use('/projects', projects);
 
